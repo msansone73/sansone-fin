@@ -2,8 +2,12 @@ package br.com.msansone.service;
 
 import java.util.List;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.ProducerTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.google.gson.Gson;
 
 import br.com.msansone.model.Stock;
 import br.com.msansone.repository.StockRepository;
@@ -14,9 +18,17 @@ public class StockServiceImpl implements StockService {
 	@Autowired
 	private StockRepository stockRepository;
 	
+	@Autowired
+	private CamelContext camelContext;
+	
 	@Override
 	public Stock getStockById(Long id) {
-		return stockRepository.findById(id).get();
+		ProducerTemplate producerTemplate = camelContext.createProducerTemplate();
+		Stock stock=stockRepository.findById(id).get();
+		Gson gson = new Gson();
+		//producerTemplate.sendBody("direct:log", gson.toJson(stock));
+		producerTemplate.asyncRequestBody("direct:log", gson.toJson(stock));
+		return stock;
 	}
 
 	@Override
