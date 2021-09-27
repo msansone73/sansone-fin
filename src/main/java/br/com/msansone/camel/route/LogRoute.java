@@ -13,7 +13,6 @@ public class LogRoute extends RouteBuilder {
 	
 	@Override
 	public void configure() throws Exception {
-		System.out.println("Criando rota...");
 	
 		from("direct:log")
 		.process(processaMensagem)
@@ -25,7 +24,8 @@ public class LogRoute extends RouteBuilder {
 			.when().jsonpath("$[?(@.tag=='XPLG11')]]")
 				.to("file:destino/D3")
 			.when().jsonpath("$[?(@.tag=='CPTS11')]]")
-				.to("file:destino/D4")
+				//.to("file:destino/D4")
+				.to("rabbitmq:testCamel")				
 			.otherwise()
 				.to("file:destino");
 	}

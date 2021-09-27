@@ -72,8 +72,11 @@
 			  <artifactId>camel-jsonpath</artifactId>
 			  <version>3.8.0</version>
 		</dependency>
-        
-		
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+		  	<artifactId>camel-rabbitmq-starter</artifactId>
+		  	<version>3.8.0</version>
+		</dependency>
 		
 	</dependencies>
 
