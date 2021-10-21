@@ -8,7 +8,6 @@ pipeline {
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                //git 'https://github.com/msansone73/sansone-fin.git'
                 git branch: 'DEV',
                     url: 'https://github.com/msansone73/sansone-fin.git'
 
