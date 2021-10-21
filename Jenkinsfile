@@ -13,7 +13,7 @@ pipeline {
                     url: 'https://github.com/msansone73/sansone-fin.git'
 
                 // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                sh "mvn -Dmaven.test.failure.ignore=true -Dspring.profiles.active=dev clean package "
 
             }
 
