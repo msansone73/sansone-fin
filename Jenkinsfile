@@ -21,7 +21,7 @@ pipeline {
         stage('Test') {
             steps {
                 // Run Maven on a Unix agent.
-                sh "mvn test"
+                sh "mvn  -Dspring.profiles.active=dev test"
 
             }
 
