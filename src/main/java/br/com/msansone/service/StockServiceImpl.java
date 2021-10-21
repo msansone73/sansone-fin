@@ -24,7 +24,10 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public Stock getStockById(Long id) {
 		ProducerTemplate producerTemplate = camelContext.createProducerTemplate();
-		Stock stock=stockRepository.findById(id).get();
+		Stock stock=stockRepository.findById(id).orElse(null);
+		if (stock==null) {
+			return null;
+		}
 		Gson gson = new Gson();
 		//producerTemplate.sendBody("direct:log", gson.toJson(stock));
 		producerTemplate.asyncRequestBody("direct:log", gson.toJson(stock));
